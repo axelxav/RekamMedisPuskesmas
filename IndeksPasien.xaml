@@ -48,16 +48,10 @@
                             HorizontalAlignment="Right"
                             Margin="0 5 30 0"
                             BorderBrush="#E6E6FA"
-                            HorizontalContentAlignment="Right"
+                            FlowDirection="RightToLeft"
                             >
                             <MenuItem Header="Change Password"></MenuItem>
-                            <MenuItem Header="Log Out"></MenuItem>
-                            <MenuItem.ContextMenu>
-                                <ContextMenu Placement="Right">
-                                    <MenuItem Header="Change Password"/>
-                                    <MenuItem Header="Log Out"/>
-                                </ContextMenu>
-                            </MenuItem.ContextMenu>
+                            <MenuItem Header="Log Out" Click="LogOut_Click"></MenuItem>
                         </MenuItem>
                         
                     </Menu>
