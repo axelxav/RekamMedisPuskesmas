@@ -1,0 +1,117 @@
+﻿<Page x:Class="RekamMedisPuskesmas.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RekamMedisPuskesmas"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="LoginPage">
+    <Page.Background>
+        <ImageBrush ImageSource="Image/puskesmas_gmaps.png"/>
+    </Page.Background>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="25*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock 
+                Name="tb_uptd"
+                Grid.Column="1"
+                Text="UPTD Puskesmas Kampunglaut"
+                FontFamily="Bahnschrift"
+                FontSize="35"
+                Foreground="White"
+                FontWeight="Bold" 
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                Margin="129,123,0,0" Height="159" 
+        
+            />
+
+            <Image
+                Name="img_logoPuskesmas"
+                Grid.Column="1"
+                Width="100"
+                Source="Image/logo_puskesmas_login.png" 
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Left"
+                Margin="24,0,0,0"
+            />
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="25*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Name="tb_username"
+                Grid.Column="1"
+                Text="Username"
+                FontFamily="Bahnschrift"
+                FontSize="20"
+                Foreground="White"
+                FontWeight="Medium" 
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Left"
+                Margin="100,100,0,0"
+            />
+
+            <TextBlock
+                Name="tb_password"
+                Grid.Column="1"
+                Text="Password"
+                FontFamily="Bahnschrift"
+                FontSize="20"
+                Foreground="White"
+                FontWeight="Medium"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Left"
+                Margin="100,150,0,0"
+            />
+
+            <TextBox
+                Name="tbx_username"
+                Grid.Column="1"
+                FontSize="12"
+                TextWrapping="NoWrap"
+                AcceptsReturn="True"
+                Margin="220,100,120,0" 
+                Height="20" 
+                VerticalAlignment="Top" 
+            />
+
+            <PasswordBox 
+                Name="pwdbox_password"
+                Grid.Column="1"
+                Height="20" 
+                Margin="220,150,120,0" VerticalAlignment="Top" 
+            />
+            <Button
+                Name="Btn_login"
+                Grid.Column="1"
+                Content="Log In"
+                FontFamily="Bahnschrift"
+                FontSize="17"
+                Height="25"
+                Width="100"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                Margin="0,205,0,0" 
+                Click="Btn_login_Clicked"
+                />
+        </Grid>
+    </Grid>
+</Page>

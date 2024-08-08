@@ -1,0 +1,155 @@
+﻿<Window x:Class="RekamMedisPuskesmas.AddPatientData"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RekamMedisPuskesmas"
+        mc:Ignorable="d"
+        Title="Add Data" Height="300" Width="400"
+        Background="#E6E6FA"
+        FontFamily="Bahnschrift"
+        ResizeMode="NoResize"
+        Icon="Image/cropped-logo-puskesmas-terbaru-sesuai-permenkes-tahun-1-3-1.png"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="80*"/>
+        </Grid.RowDefinitions>
+        <Label 
+            Name="lbl_tambahDataPasien" 
+            Content="Tambah Data Pasien" 
+            FontFamily="Bahnschrift"
+            FontSize="15"
+            FontWeight="Bold"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Margin="10 0 0 0"
+            />
+        <StackPanel Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock 
+                    Name="Tb_Nama" 
+                    Margin="20 0 0 0"
+                    Width="70"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    >
+                    Nama :
+                </TextBlock>
+                <TextBox
+                    Name="Tbx_Nama"
+                    Margin="10 0 0 0"
+                    Width="250"
+                    Height="20"
+                    >
+                    
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock 
+                    Name="Tb_NamaKK" 
+                    Margin="20 0 0 0"
+                    Width="70"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    >
+                    Nama KK :
+                </TextBlock>
+                <TextBox
+                    Name="Tbx_NamaKK"
+                    Margin="10 0 0 0"
+                    Width="250"
+                    Height="20"
+                    >
+
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock 
+                    Name="Tb_Desa" 
+                    Margin="20 0 0 0"
+                    Width="70"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    >
+                    Desa :
+                </TextBlock>
+                <TextBox
+                    Name="Tbx_Desa"
+                    Margin="10 0 0 0"
+                    Width="250"
+                    Height="20"
+                    >
+
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock 
+                    Name="Tb_RT" 
+                    Margin="20 0 0 0"
+                    Width="70"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    >
+                    RT :
+                </TextBlock>
+                <TextBox
+                    Name="Tbx_RT"
+                    Margin="10 0 0 0"
+                    Width="250"
+                    Height="20"
+                    >
+
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock 
+                    Name="Tb_RW" 
+                    Margin="20 0 0 0"
+                    Width="70"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    >
+                    RW :
+                </TextBlock>
+                <TextBox
+                    Name="Tbx_RW"
+                    Margin="10 0 0 0"
+                    Width="250"
+                    Height="20"
+                    >
+
+                </TextBox>
+            </StackPanel>
+            
+            <StackPanel 
+                Orientation="Horizontal" 
+                Margin="0 30 0 0"
+                HorizontalAlignment="Right"
+                >
+                <Button 
+                    Name="Btn_Add" 
+                    Content="Add" 
+                    Background="LimeGreen" 
+                    BorderBrush="Gray" 
+                    Width="100" 
+                    Height="25" 
+                    HorizontalAlignment="Right" 
+                    Margin="0 0 10 0"
+                    />
+                <Button 
+                    Name="Btn_Cancel" 
+                    Content="Cancel" 
+                    Background="Red" 
+                    BorderBrush="Gray" 
+                    Width="100" 
+                    Height="25" 
+                    HorizontalAlignment="Right" 
+                    Margin="0 0 50 0"
+                    Click="Btn_Cancel_Click"
+                    />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,244 @@
+﻿<Page x:Class="RekamMedisPuskesmas.IndeksPasien"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RekamMedisPuskesmas"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="IndeksPasien"
+      Background="#E6E6FA">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="80*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="#E6E6FA">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="80*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Background="#E6E6FA">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="7*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Grid.Column="1"
+                        Name="img_accoount"
+                        Source="Image/account.png"
+                        Width="25"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
+
+                    <Menu Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0 0 0 0" Background="{x:Null}">
+                        <MenuItem 
+                            Grid.Column="2" 
+                            Header="Admin" 
+                            FontFamily="Bahnschrift" 
+                            FontSize="15"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
+                            Margin="0 5 30 0"
+                            BorderBrush="#E6E6FA"
+                            HorizontalContentAlignment="Right"
+                            >
+                            <MenuItem Header="Change Password"></MenuItem>
+                            <MenuItem Header="Log Out"></MenuItem>
+                            <MenuItem.ContextMenu>
+                                <ContextMenu Placement="Right">
+                                    <MenuItem Header="Change Password"/>
+                                    <MenuItem Header="Log Out"/>
+                                </ContextMenu>
+                            </MenuItem.ContextMenu>
+                        </MenuItem>
+                        
+                    </Menu>
+                </Grid>
+                
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60*"/>
+                        <RowDefinition Height="40*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Label 
+                        Name="lbl_indeksPasien" 
+                        Content="Data Indeks Pasien" 
+                        FontFamily="Bahnschrift"
+                        FontSize="32"
+                        FontWeight="Bold"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        />
+                    
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <Label 
+                            Name="Lbl_desa" 
+                            FontFamily="Bahnschrift" 
+                            FontSize="13" 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Left"
+                            Margin="10 0 0 0"
+                            >
+                            Desa :
+                        </Label>
+                        
+                        <ComboBox 
+                            Name="Cb_desa" 
+                            Width="100" 
+                            Height="30" 
+                            FontFamily="Bahnschrift"
+                            FontSize="13"
+                            IsEditable="True" 
+                            IsReadOnly="True"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Left"
+                            >
+                            
+                        </ComboBox>
+                        
+                        <Label 
+                            Name="Lbl_noUrut" 
+                            FontFamily="Bahnschrift" 
+                            FontSize="13" 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Left"
+                            Margin="10 0 0 0"
+                            >
+                            No Urut :
+                        </Label>
+                        
+                        <TextBox 
+                            Name="Tbx_noUrut" 
+                            Width="100" 
+                            Height="30"
+                            FontFamily="Bahnschrift"
+                            FontSize="13"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            HorizontalAlignment="Left"
+                            >
+
+                        </TextBox>
+
+                        <Label 
+                            Name="Lbl_nama" 
+                            FontFamily="Bahnschrift" 
+                            FontSize="13" 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Left"
+                            Margin="10 0 0 0"
+                            >
+                            Nama :
+                        </Label>
+
+                        <TextBox 
+                            Name="Tbx_nama" 
+                            Width="150" 
+                            Height="30"
+                            FontFamily="Bahnschrift"
+                            FontSize="13"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            HorizontalAlignment="Left"
+                            >
+
+                        </TextBox>
+
+                        <Label 
+                            Name="Lbl_tanggalMulai" 
+                            FontFamily="Bahnschrift" 
+                            FontSize="13" 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Left"
+                            Margin="10 0 0 0"
+                            >
+                            Tanggal Awal :
+                        </Label>
+                        
+                        <DatePicker 
+                            Name="Dp_tanggalAwal" 
+                            VerticalContentAlignment="Center"
+                            Width="150"
+                            Height="30" BorderBrush="{x:Null}"
+                            >
+                            
+                        </DatePicker>
+
+                        <Label 
+                            Name="Lbl_tanggalAkhir" 
+                            FontFamily="Bahnschrift" 
+                            FontSize="13" 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Left"
+                            Margin="10 0 0 0"
+                            >
+                            Tanggal Akhir :
+                        </Label>
+
+                        <DatePicker 
+                            Name="Dp_tanggalMulai" 
+                            VerticalContentAlignment="Center"
+                            Width="150"
+                            Height="30" BorderBrush="{x:Null}"
+                            >
+
+                        </DatePicker>
+
+                        <Button 
+                            Name="Btn_search"
+                            Content="Search"
+                            FontFamily="Bahnschrift" 
+                            FontSize="12"
+                            Width="50" 
+                            Height="25" 
+                            Margin="10 0 0 0" 
+                            >
+                            
+                        </Button>
+
+                        <Button 
+                            Name="Btn_clear"
+                            Content="Clear"
+                            FontFamily="Bahnschrift" 
+                            FontSize="13"
+                            Width="50" 
+                            Height="25"
+                            Margin="5 0 0 0"
+                            >
+
+                        </Button>
+
+                        <Button 
+                            Name="Btn_add"
+                            Content="Add Data"
+                            FontFamily="Bahnschrift" 
+                            FontSize="13"
+                            Width="70"
+                            Height="25"
+                            Background="LimeGreen"
+                            HorizontalAlignment="Right"
+                            Margin="20 0 0 0"
+                            Click="Btn_add_Click"
+                            >
+                            
+                        </Button>
+
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            
+            <Grid Grid.Row="1">
+                
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>
