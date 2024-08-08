@@ -20,11 +20,11 @@ namespace RekamMedisPuskesmas
             if (IsValidLogin(username, password))
             {
                 MessageBox.Show("login Berhasil");
-                _mainWindow.NavigateToPage(new IndeksPasien());
+                _mainWindow.NavigateToPage(new IndeksPasien(_mainWindow));
             }
             else
             {
-                MessageBox.Show("error");
+                MessageBox.Show("Login Gagal: Pastikan Username dan Password yang dimasukkan sudah benar!");
             }
         }
 
