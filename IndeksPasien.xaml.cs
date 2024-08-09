@@ -1,5 +1,6 @@
 ﻿using Npgsql;
 using System;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +10,7 @@ namespace RekamMedisPuskesmas
     public partial class IndeksPasien : Page
     {
         private MainWindow _mainWindow;
-        private string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=1234;Database=puskesmas";
+        private string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
 
         public IndeksPasien()
         {
@@ -22,11 +23,15 @@ namespace RekamMedisPuskesmas
             _mainWindow = mainWindow;
         }
 
+        public void RefreshData()
+        {
+            LoadPatientData();
+        }
+
         private void Btn_add_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            AddPatientData addpatientdata = new AddPatientData();
-            addpatientdata.ShowDialog();
-
+            AddPatientData addPatientData = new AddPatientData(this);
+            addPatientData.ShowDialog();
         }
 
         private void LogOut_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -64,6 +69,5 @@ namespace RekamMedisPuskesmas
                 }
             }
         }
-
     }
 }
