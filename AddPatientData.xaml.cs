@@ -13,5 +13,10 @@ namespace RekamMedisPuskesmas
         {
             this.Close();
         }
+
+        private void Btn_Add_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
