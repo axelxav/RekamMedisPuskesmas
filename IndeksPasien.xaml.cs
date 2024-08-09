@@ -46,7 +46,7 @@ namespace RekamMedisPuskesmas
                 try
                 {
                     connection.Open();
-                    string query = "SELECT * FROM data_pasien";
+                    string query = "SELECT no_rm,rmepus,nama,tanggallahir,nik,nobpjs,wilayah,rt,rw,namakk,tglinput FROM data_pasien";
 
                     using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
                     {

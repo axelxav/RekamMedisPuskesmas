@@ -54,3 +54,10 @@ F:\Aplikasi KKN\RekamMedisPuskesmas\obj\Debug\AddPatientData.g.cs
 F:\Aplikasi KKN\RekamMedisPuskesmas\obj\Debug\AddPatientData.baml
 F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\System.Configuration.ConfigurationManager.dll
 F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\System.Configuration.ConfigurationManager.xml
+F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\Syncfusion.Data.WPF.dll
+F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\Syncfusion.Licensing.dll
+F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\Syncfusion.SfGrid.WPF.dll
+F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\Syncfusion.Shared.WPF.dll
+F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\Syncfusion.Data.WPF.xml
+F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\Syncfusion.SfGrid.WPF.xml
+F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\Syncfusion.Shared.WPF.xml

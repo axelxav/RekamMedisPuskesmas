@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RekamMedisPuskesmas"
+      xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="IndeksPasien"
@@ -53,16 +54,16 @@
                             <MenuItem Header="Change Password"></MenuItem>
                             <MenuItem Header="Log Out" Click="LogOut_Click"></MenuItem>
                         </MenuItem>
-                        
+
                     </Menu>
                 </Grid>
-                
+
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60*"/>
                         <RowDefinition Height="40*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Label 
                         Name="lbl_indeksPasien" 
                         Content="Data Indeks Pasien" 
@@ -72,7 +73,7 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         />
-                    
+
                     <StackPanel Orientation="Horizontal" Grid.Row="1">
                         <Label 
                             Name="Lbl_Wilayah" 
@@ -84,7 +85,7 @@
                             >
                             Wilayah :
                         </Label>
-                        
+
                         <ComboBox 
                             Name="Cb_Wilayah" 
                             Width="100" 
@@ -96,9 +97,9 @@
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Left"
                             >
-                            
+
                         </ComboBox>
-                        
+
                         <Label 
                             Name="Lbl_noUrut" 
                             FontFamily="Bahnschrift" 
@@ -109,7 +110,7 @@
                             >
                             No Urut :
                         </Label>
-                        
+
                         <TextBox 
                             Name="Tbx_noUrut" 
                             Width="100" 
@@ -204,7 +205,7 @@
                             Height="25" 
                             Margin="10 0 0 0" 
                             >
-                            
+
                         </Button>
 
                         <Button 
@@ -231,21 +232,27 @@
                             Margin="20 0 0 0"
                             Click="Btn_add_Click"
                             >
-                            
+
                         </Button>
 
                     </StackPanel>
                 </Grid>
             </Grid>
-            
+
             <Grid Grid.Row="1">
                 <DataGrid 
                     x:Name="PatientDataGrid" 
                     AutoGenerateColumns="True" 
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch" 
+                    Width="1280"
                     Margin="10"
-                    />
+                    HorizontalContentAlignment="Stretch"
+                    RowHeight="20"
+                    ColumnWidth="120"
+                    >
+
+                </DataGrid>
             </Grid>
         </Grid>
     </ScrollViewer>
