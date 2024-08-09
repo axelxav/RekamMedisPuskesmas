@@ -75,18 +75,18 @@
                     
                     <StackPanel Orientation="Horizontal" Grid.Row="1">
                         <Label 
-                            Name="Lbl_desa" 
+                            Name="Lbl_Wilayah" 
                             FontFamily="Bahnschrift" 
                             FontSize="13" 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Left"
                             Margin="10 0 0 0"
                             >
-                            Desa :
+                            Wilayah :
                         </Label>
                         
                         <ComboBox 
-                            Name="Cb_desa" 
+                            Name="Cb_Wilayah" 
                             Width="100" 
                             Height="30" 
                             FontFamily="Bahnschrift"
@@ -147,45 +147,53 @@
 
                         </TextBox>
 
-                        <Label 
-                            Name="Lbl_tanggalMulai" 
-                            FontFamily="Bahnschrift" 
-                            FontSize="13" 
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Left"
-                            Margin="10 0 0 0"
-                            >
-                            Tanggal Awal :
-                        </Label>
-                        
-                        <DatePicker 
-                            Name="Dp_tanggalAwal" 
-                            VerticalContentAlignment="Center"
-                            Width="150"
-                            Height="30" BorderBrush="{x:Null}"
-                            >
-                            
-                        </DatePicker>
+                        <StackPanel Margin="10 0 0 0">
+                            <StackPanel Orientation="Horizontal">
+                                <Label 
+                                    Name="Lbl_tanggalMulai" 
+                                    FontFamily="Bahnschrift" 
+                                    FontSize="13"
+                                    Width="100"
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Left"
+                                    Margin="10 0 0 0"
+                                    >
+                                    Tanggal Awal :
+                                </Label>
+                                <DatePicker 
+                                    Name="Dp_tanggalAwal" 
+                                    VerticalContentAlignment="Center"
+                                    Width="150"
+                                    Height="30" BorderBrush="{x:Null}"
+                                    >
 
-                        <Label 
-                            Name="Lbl_tanggalAkhir" 
-                            FontFamily="Bahnschrift" 
-                            FontSize="13" 
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Left"
-                            Margin="10 0 0 0"
-                            >
-                            Tanggal Akhir :
-                        </Label>
+                                </DatePicker>
 
-                        <DatePicker 
-                            Name="Dp_tanggalMulai" 
-                            VerticalContentAlignment="Center"
-                            Width="150"
-                            Height="30" BorderBrush="{x:Null}"
-                            >
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label 
+                                    Name="Lbl_tanggalAkhir" 
+                                    FontFamily="Bahnschrift" 
+                                    FontSize="13"
+                                    Width="100"
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Left"
+                                    Margin="10 0 0 0"
+                                    >
+                                    Tanggal Akhir :
+                                </Label>
 
-                        </DatePicker>
+                                <DatePicker 
+                                    Name="Dp_tanggalMulai" 
+                                    VerticalContentAlignment="Center"
+                                    Width="150"
+                                    Height="30" BorderBrush="{x:Null}"
+                                    >
+
+                                </DatePicker>
+                            </StackPanel>
+
+                        </StackPanel>
 
                         <Button 
                             Name="Btn_search"
@@ -231,7 +239,13 @@
             </Grid>
             
             <Grid Grid.Row="1">
-                
+                <DataGrid 
+                    x:Name="PatientDataGrid" 
+                    AutoGenerateColumns="True" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" 
+                    Margin="10"
+                    />
             </Grid>
         </Grid>
     </ScrollViewer>
