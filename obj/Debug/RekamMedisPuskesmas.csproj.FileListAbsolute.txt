@@ -52,3 +52,5 @@ F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\System.ValueTuple.xml
 F:\Aplikasi KKN\RekamMedisPuskesmas\obj\Debug\RekamMedisPuskesmas.csproj.CopyComplete
 F:\Aplikasi KKN\RekamMedisPuskesmas\obj\Debug\AddPatientData.g.cs
 F:\Aplikasi KKN\RekamMedisPuskesmas\obj\Debug\AddPatientData.baml
+F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\System.Configuration.ConfigurationManager.dll
+F:\Aplikasi KKN\RekamMedisPuskesmas\bin\Debug\System.Configuration.ConfigurationManager.xml
