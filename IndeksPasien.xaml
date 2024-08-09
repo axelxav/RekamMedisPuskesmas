@@ -92,7 +92,7 @@
                             Height="30" 
                             FontFamily="Bahnschrift"
                             FontSize="13"
-                            IsEditable="True" 
+                            IsEditable="False" 
                             IsReadOnly="True"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Left"
@@ -242,7 +242,7 @@
             <Grid Grid.Row="1">
                 <DataGrid 
                     x:Name="PatientDataGrid" 
-                    AutoGenerateColumns="True" 
+                    AutoGenerateColumns="False" 
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch" 
                     Width="1280"
@@ -251,7 +251,19 @@
                     RowHeight="20"
                     ColumnWidth="120"
                     >
-
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="No RM" Binding="{Binding no_rm}" Width="70"/>
+                        <DataGridTextColumn Header="RM E-PUS" Binding="{Binding rmepus}" Width="70"/>
+                        <DataGridTextColumn Header="Nama" Binding="{Binding nama}" Width="*"/>
+                        <DataGridTextColumn Header="Tanggal Lahir" Binding="{Binding tanggallahir, StringFormat=\{0:yyyy-MM-dd\}}" Width="100"/>
+                        <DataGridTextColumn Header="NIK" Binding="{Binding nik}" Width="*"/>
+                        <DataGridTextColumn Header="No BPJS" Binding="{Binding nobpjs}" Width="*"/>
+                        <DataGridTextColumn Header="Wilayah" Binding="{Binding wilayah}" Width="*"/>
+                        <DataGridTextColumn Header="RT" Binding="{Binding rt}" Width="50"/>
+                        <DataGridTextColumn Header="RW" Binding="{Binding rw}" Width="50"/>
+                        <DataGridTextColumn Header="Nama KK" Binding="{Binding namakk}" Width="*"/>
+                        <DataGridTextColumn Header="Tgl Input" Binding="{Binding tglinput}" Width="*"/>
+                    </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </Grid>
