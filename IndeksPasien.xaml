@@ -221,6 +221,20 @@
                         </Button>
 
                         <Button 
+                            Name="Btn_Delete"
+                            Content="Delete Data"
+                            FontFamily="Bahnschrift" 
+                            FontSize="13"
+                            Width="80"
+                            Height="25"
+                            Background="Red"
+                            HorizontalAlignment="Right"
+                            Margin="20 0 0 0"
+                            Click="Btn_Delete_Click"
+                            />
+
+
+                        <Button 
                             Name="Btn_add"
                             Content="Add Data"
                             FontFamily="Bahnschrift" 
@@ -250,6 +264,7 @@
                     HorizontalContentAlignment="Stretch"
                     RowHeight="20"
                     ColumnWidth="120"
+                    CellEditEnding="PatientDataGrid_CellEditEnding"
                     >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="No RM" Binding="{Binding no_rm}" Width="70"/>

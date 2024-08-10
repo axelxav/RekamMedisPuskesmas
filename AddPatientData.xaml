@@ -158,9 +158,30 @@
                     Height="20"
                     IsEditable="False" 
                     IsReadOnly="True"
+                    SelectionChanged="Cb_Wilayah_SelectionChanged"
                     >
                     
                 </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBlock 
+                    Name="Tb_LuarWilayah" 
+                    Margin="20 0 0 0"
+                    Width="150"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    >
+                    Luar Wilayah :
+                </TextBlock>
+                <TextBox
+                    Name="Tbx_LuarWilayah"
+                    Margin="10 0 0 0"
+                    Width="250"
+                    Height="20"
+                    IsEnabled="False"
+                    >
+
+                </TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                 <TextBlock 
