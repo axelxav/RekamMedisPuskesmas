@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Text.RegularExpressions;
 
 namespace RekamMedisPuskesmas
 {
@@ -84,12 +85,30 @@ namespace RekamMedisPuskesmas
                 DataRowView rowView = e.Row.Item as DataRowView;
                 if (rowView != null)
                 {
-                    string columnName = e.Column.Header.ToString();
+                    //string columnName = e.Column.Header.ToString();
+                    // Mengambil header kolom
+                    string columnHeader = e.Column.Header.ToString();
+
+                    // Menghapus spasi, karakter khusus, dan mengubah menjadi huruf kecil
+                    string columnName = Regex.Replace(columnHeader, @"[^a-zA-Z0-9]", "").ToLower();
+
                     string newValue = (e.EditingElement as TextBox).Text;
                     string noRm = rowView["no_rm"].ToString(); // Asumsi no_rm adalah primary key
 
-                    // Menyesuaikan tipe data untuk kolom tertentu jika diperlukan
-                    if (columnName == "Tanggal Lahir")
+                    // Menangani tipe data integer
+                    if (columnName == "RT" || columnName == "RW")
+                    {
+                        if (int.TryParse(newValue, out int intValue))
+                        {
+                            newValue = intValue.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid number format.");
+                            return;
+                        }
+                    }
+                    else if (columnName == "Tanggal Lahir")
                     {
                         if (DateTime.TryParse(newValue, out DateTime parsedDate))
                         {
@@ -101,19 +120,16 @@ namespace RekamMedisPuskesmas
                             return;
                         }
                     }
-                    else if (columnName == "RT" || columnName == "RW")
+                    else
                     {
-                        if (!int.TryParse(newValue, out _))
-                        {
-                            MessageBox.Show("Invalid number format.");
-                            return;
-                        }
+                        newValue = newValue.ToUpper();
                     }
 
                     UpdateDatabase(columnName, newValue, noRm);
                 }
             }
         }
+
 
         private void UpdateDatabase(string columnName, string newValue, string noRm)
         {
@@ -122,16 +138,20 @@ namespace RekamMedisPuskesmas
                 try
                 {
                     connection.Open();
-
-                    // Ubah string ke huruf kapital
-                    string capitalizedValue = newValue.ToUpper();
-
-                    // Menyesuaikan query dan tipe data jika perlu
-                    string query = $"UPDATE data_pasien SET {columnName} = @capitalizedValue WHERE no_rm = @noRm";
+                    string query = $"UPDATE data_pasien SET \"{columnName}\" = @value WHERE no_rm = @noRm";
 
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@capitalizedValue", capitalizedValue);
+                        // Menambahkan parameter dengan tipe yang sesuai
+                        if (columnName == "RT" || columnName == "RW")
+                        {
+                            command.Parameters.AddWithValue("@value", int.Parse(newValue));
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@value", newValue);
+                        }
+
                         command.Parameters.AddWithValue("@noRm", noRm);
                         command.ExecuteNonQuery();
                     }
@@ -142,7 +162,6 @@ namespace RekamMedisPuskesmas
                 }
             }
         }
-
 
         private void Btn_Delete_Click(object sender, RoutedEventArgs e)
         {
@@ -187,7 +206,5 @@ namespace RekamMedisPuskesmas
                 MessageBox.Show("Please select a row to delete.");
             }
         }
-
-
     }
 }
