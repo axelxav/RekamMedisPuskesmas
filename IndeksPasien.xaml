@@ -96,9 +96,11 @@
                             IsReadOnly="True"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Left"
+                            SelectionChanged="Cb_Wilayah_SelectionChanged"
                             >
 
                         </ComboBox>
+
 
                         <Label 
                             Name="Lbl_noUrut" 
@@ -113,13 +115,39 @@
 
                         <TextBox 
                             Name="Tbx_noUrut" 
-                            Width="100" 
+                            Width="70" 
                             Height="30"
                             FontFamily="Bahnschrift"
                             FontSize="13"
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left"
+                            TextChanged="Tbx_noUrut_TextChanged"
+                            >
+
+                        </TextBox>
+                        
+                        <Label 
+                            Name="Lbl_noBPJS" 
+                            FontFamily="Bahnschrift" 
+                            FontSize="13" 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Left"
+                            Margin="10 0 0 0"
+                            >
+                            No BPJS :
+                        </Label>
+
+                        <TextBox 
+                            Name="Tbx_noBPJS" 
+                            Width="70" 
+                            Height="30"
+                            FontFamily="Bahnschrift"
+                            FontSize="13"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            HorizontalAlignment="Left"
+                            TextChanged="Tbx_noBPJS_TextChanged"
                             >
 
                         </TextBox>
@@ -144,6 +172,7 @@
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left"
+                            TextChanged="Tbx_nama_TextChanged"
                             >
 
                         </TextBox>
@@ -151,7 +180,7 @@
                         <StackPanel Margin="10 0 0 0">
                             <StackPanel Orientation="Horizontal">
                                 <Label 
-                                    Name="Lbl_tanggalMulai" 
+                                    Name="Lbl_tanggalAwal" 
                                     FontFamily="Bahnschrift" 
                                     FontSize="13"
                                     Width="100"
@@ -185,7 +214,7 @@
                                 </Label>
 
                                 <DatePicker 
-                                    Name="Dp_tanggalMulai" 
+                                    Name="Dp_tanggalAkhir" 
                                     VerticalContentAlignment="Center"
                                     Width="150"
                                     Height="30" BorderBrush="{x:Null}"
@@ -204,6 +233,7 @@
                             Width="50" 
                             Height="25" 
                             Margin="10 0 0 0" 
+                            Click="Btn_search_Click"
                             >
 
                         </Button>
@@ -216,6 +246,7 @@
                             Width="50" 
                             Height="25"
                             Margin="5 0 0 0"
+                            Click="Btn_clear_Click"
                             >
 
                         </Button>
