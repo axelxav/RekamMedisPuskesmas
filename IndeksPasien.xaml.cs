@@ -492,5 +492,11 @@ namespace RekamMedisPuskesmas
                 }
             }
         }
+
+        private void Change_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePassword changepassword = new ChangePassword();
+            changepassword.ShowDialog();
+        }
     }
 }

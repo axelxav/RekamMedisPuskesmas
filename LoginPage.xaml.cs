@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data;
+using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -21,6 +22,7 @@ namespace RekamMedisPuskesmas
         private void Btn_login_Clicked(object sender, RoutedEventArgs e)
         {
             string username = tbx_username.Text;
+            SessionManager.Username = username;
             string password = pwdbox_password.Password;
             Mouse.OverrideCursor = Cursors.Wait;
 
@@ -33,6 +35,7 @@ namespace RekamMedisPuskesmas
             else
             {
                 MessageBox.Show("Login Gagal: Pastikan Username dan Password yang dimasukkan sudah benar!");
+                Mouse.OverrideCursor = null;
             }
         }
 
@@ -43,15 +46,24 @@ namespace RekamMedisPuskesmas
                 try
                 {
                     connection.Open();
-                    string query = "SELECT COUNT(*) FROM data_login WHERE username = @username AND password = @password";
+                    string query = "SELECT id FROM data_login WHERE username = @username AND password = @password";
 
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@username", username);
                         command.Parameters.AddWithValue("@password", password);
 
-                        int userCount = Convert.ToInt32(command.ExecuteScalar());
-                        return userCount > 0;
+                        var result = command.ExecuteScalar();
+                        if (result != null)
+                        {
+                            // Simpan ID pengguna ke SessionManager
+                            SessionManager.UserID = Convert.ToInt32(result);
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -61,5 +73,13 @@ namespace RekamMedisPuskesmas
                 }
             }
         }
+
+
+        public static class SessionManager
+        {
+            public static int UserID { get; set; }
+            public static string Username { get; set; }
+        }
+
     }
 }
