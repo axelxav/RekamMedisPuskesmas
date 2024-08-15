@@ -35,7 +35,7 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     >
-                    No Urut/RM Dokumen :
+                    Nomor RM :
                 </TextBlock>
                 <TextBox
                     Name="Tbx_NoUrut"
@@ -54,7 +54,7 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     >
-                    RM E-Pus :
+                    Nomor RM E-Pus :
                 </TextBlock>
                 <TextBox
                     Name="Tbx_RMEpus"
@@ -130,7 +130,7 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     >
-                    Nomor BPJS :
+                    Nomor Asuransi :
                 </TextBlock>
                 <TextBox
                     Name="Tbx_NoBpjs"

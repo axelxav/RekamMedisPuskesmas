@@ -51,7 +51,7 @@
                             BorderBrush="#E6E6FA"
                             FlowDirection="RightToLeft"
                             >
-                            <MenuItem Header="Change Password"></MenuItem>
+                            <MenuItem Header="Change Password" Click="Change_Click"></MenuItem>
                             <MenuItem Header="Log Out" Click="LogOut_Click"></MenuItem>
                         </MenuItem>
 
@@ -66,7 +66,7 @@
 
                     <Label 
                         Name="lbl_indeksPasien" 
-                        Content="Data Indeks Pasien" 
+                        Content="Data Indeks Utama Pasien" 
                         FontFamily="Bahnschrift"
                         FontSize="32"
                         FontWeight="Bold"
@@ -110,7 +110,7 @@
                             HorizontalAlignment="Left"
                             Margin="10 0 0 0"
                             >
-                            No Urut :
+                            No RM :
                         </Label>
 
                         <TextBox 
@@ -135,7 +135,7 @@
                             HorizontalAlignment="Left"
                             Margin="10 0 0 0"
                             >
-                            No BPJS :
+                            No Asuransi :
                         </Label>
 
                         <TextBox 
@@ -299,16 +299,16 @@
                     >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="No RM" Binding="{Binding no_rm}" Width="70"/>
-                        <DataGridTextColumn Header="RM E-PUS" Binding="{Binding rmepus}" Width="70"/>
-                        <DataGridTextColumn Header="Nama" Binding="{Binding nama}" Width="*"/>
+                        <DataGridTextColumn Header="No RM E-PUS" Binding="{Binding rmepus}" Width="70"/>
+                        <DataGridTextColumn Header="Nama Pasien" Binding="{Binding nama}" Width="*"/>
                         <DataGridTextColumn Header="Tanggal Lahir" Binding="{Binding tanggallahir, StringFormat=\{0:yyyy-MM-dd\}}" Width="100"/>
                         <DataGridTextColumn Header="NIK" Binding="{Binding nik}" Width="*"/>
-                        <DataGridTextColumn Header="No BPJS" Binding="{Binding nobpjs}" Width="*"/>
+                        <DataGridTextColumn Header="No Asuransi" Binding="{Binding nobpjs}" Width="*"/>
                         <DataGridTextColumn Header="Wilayah" Binding="{Binding wilayah}" Width="*"/>
                         <DataGridTextColumn Header="RT" Binding="{Binding rt}" Width="50"/>
                         <DataGridTextColumn Header="RW" Binding="{Binding rw}" Width="50"/>
                         <DataGridTextColumn Header="Nama KK" Binding="{Binding namakk}" Width="*"/>
-                        <DataGridTextColumn Header="Tgl Input" Binding="{Binding tglinput}" Width="*"/>
+                        <DataGridTextColumn Header="Tanggal Input" Binding="{Binding tglinput}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
