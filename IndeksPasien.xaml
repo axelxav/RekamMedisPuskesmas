@@ -74,14 +74,13 @@
                         HorizontalAlignment="Center"
                         />
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
                         <Label 
                             Name="Lbl_Wilayah" 
                             FontFamily="Bahnschrift" 
                             FontSize="13" 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Left"
-                            Margin="10 0 0 0"
                             >
                             Wilayah :
                         </Label>
@@ -226,7 +225,7 @@
 
                         <Button 
                             Name="Btn_search"
-                            Content="Search"
+                            Content="Filter"
                             FontFamily="Bahnschrift" 
                             FontSize="12"
                             Width="50" 
@@ -250,34 +249,38 @@
 
                         </Button>
 
-                        <Button 
-                            Name="Btn_Delete"
-                            Content="Delete Data"
-                            FontFamily="Bahnschrift" 
-                            FontSize="13"
-                            Width="80"
-                            Height="25"
-                            Background="Red"
-                            HorizontalAlignment="Right"
-                            Margin="20 0 0 0"
-                            Click="Btn_Delete_Click"
-                            />
+                        <StackPanel Orientation="Vertical" Margin="10 0 0 0">
 
 
-                        <Button 
-                            Name="Btn_add"
-                            Content="Add Data"
-                            FontFamily="Bahnschrift" 
-                            FontSize="13"
-                            Width="70"
-                            Height="25"
-                            Background="LimeGreen"
-                            HorizontalAlignment="Right"
-                            Margin="20 0 0 0"
-                            Click="Btn_add_Click"
-                            >
+                            <Button 
+                                Name="Btn_add"
+                                Content="Add Data"
+                                FontFamily="Bahnschrift" 
+                                FontSize="13"
+                                Width="80"
+                                Height="25"
+                                Background="LimeGreen"
+                                HorizontalAlignment="Right"
+                                Margin="0 0 0 0"
+                                Click="Btn_add_Click"
+                                >
 
-                        </Button>
+                            </Button>
+                            <Button 
+                                Name="Btn_Delete"
+                                Content="Delete Data"
+                                FontFamily="Bahnschrift" 
+                                FontSize="13"
+                                Width="80"
+                                Height="25"
+                                Background="Red"
+                                HorizontalAlignment="Right"
+                                Margin="0 10 0 0"
+                                Click="Btn_Delete_Click"
+                                />
+                        </StackPanel>
+
+                        
 
                     </StackPanel>
                 </Grid>
@@ -310,7 +313,7 @@
                         <DataGridTextColumn Header="RT" Binding="{Binding rt}" Width="50"/>
                         <DataGridTextColumn Header="RW" Binding="{Binding rw}" Width="50"/>
                         <DataGridTextColumn Header="Nama KK" Binding="{Binding namakk}" Width="*"/>
-                        <DataGridTextColumn Header="Tanggal Input" Binding="{Binding tglinput}" Width="*"/>
+                        <DataGridTextColumn Header="Tanggal Input" Binding="{Binding tglinput}" Width="100"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
