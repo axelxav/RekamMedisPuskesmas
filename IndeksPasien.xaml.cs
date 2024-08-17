@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace RekamMedisPuskesmas
 {
@@ -17,7 +18,6 @@ namespace RekamMedisPuskesmas
         public IndeksPasien()
         {
             InitializeComponent();
-            LoadPatientData();
             Cb_Wilayah.Items.Add("UJUNGGAGAK");
             Cb_Wilayah.Items.Add("UJUNGALANG");
             Cb_Wilayah.Items.Add("PANIKEL");
@@ -32,12 +32,12 @@ namespace RekamMedisPuskesmas
             _mainWindow = mainWindow;
         }
 
-        public void RefreshData()
+        public async void RefreshData()
         {
-            LoadPatientData();
+            await LoadDataKlacesAsync();
         }
 
-        private void Btn_add_Click(object sender, System.Windows.RoutedEventArgs e)
+        private async void Btn_add_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             AddPatientData addPatientData = new AddPatientData(this);
             addPatientData.ShowDialog();
@@ -48,19 +48,21 @@ namespace RekamMedisPuskesmas
             _mainWindow.NavigateToPage(new LoginPage(_mainWindow));
         }
 
-        private void LoadPatientData()
+        private async Task LoadDataUjunggagakAsync()
         {
+            LoadingProgressBar.Visibility = Visibility.Visible;
+
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 try
                 {
-                    connection.Open();
-                    string query = "SELECT no_rm,rmepus,nama,tanggallahir,nik,nobpjs,wilayah,rt,rw,namakk,tglinput FROM data_pasien";
+                    await connection.OpenAsync();
+                    string query = "SELECT * FROM data_ujunggagak";
 
                     using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
                     {
                         DataTable dataTable = new DataTable();
-                        adapter.Fill(dataTable);
+                        await Task.Run(() => adapter.Fill(dataTable));
 
                         if (dataTable.Rows.Count > 0)
                         {
@@ -76,9 +78,161 @@ namespace RekamMedisPuskesmas
                 {
                     MessageBox.Show($"Error loading data: {ex.Message}");
                 }
+                finally
+                {
+                    LoadingProgressBar.Visibility = Visibility.Collapsed;
+                }
             }
         }
 
+        private async Task LoadDataUjungalangAsync()
+        {
+            LoadingProgressBar.Visibility = Visibility.Visible;
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    await connection.OpenAsync();
+                    string query = "SELECT * FROM data_ujungalang";
+
+                    using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
+                    {
+                        DataTable dataTable = new DataTable();
+                        await Task.Run(() => adapter.Fill(dataTable));
+
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            PatientDataGrid.ItemsSource = dataTable.DefaultView;
+                        }
+                        else
+                        {
+                            MessageBox.Show("No data found in the table.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading data: {ex.Message}");
+                }
+                finally
+                {
+                    LoadingProgressBar.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private async Task LoadDataPanikelAsync()
+        {
+            LoadingProgressBar.Visibility = Visibility.Visible;
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    await connection.OpenAsync();
+                    string query = "SELECT * FROM data_panikel";
+
+                    using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
+                    {
+                        DataTable dataTable = new DataTable();
+                        await Task.Run(() => adapter.Fill(dataTable));
+
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            PatientDataGrid.ItemsSource = dataTable.DefaultView;
+                        }
+                        else
+                        {
+                            MessageBox.Show("No data found in the table.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading data: {ex.Message}");
+                }
+
+                finally
+                {
+                    LoadingProgressBar.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private async Task LoadDataKlacesAsync()
+        {
+            LoadingProgressBar.Visibility = Visibility.Visible;
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    await connection.OpenAsync();
+                    string query = "SELECT * FROM data_klaces";
+
+                    using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
+                    {
+                        DataTable dataTable = new DataTable();
+                        await Task.Run(() => adapter.Fill(dataTable));
+
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            PatientDataGrid.ItemsSource = dataTable.DefaultView;
+                        }
+                        else
+                        {
+                            MessageBox.Show("No data found in the table.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading data: {ex.Message}");
+                }
+                finally
+                {
+                    LoadingProgressBar.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private async Task LoadDataLuarwilayahAsync()
+        {
+            LoadingProgressBar.Visibility = Visibility.Visible;
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    await connection.OpenAsync();
+                    string query = "SELECT * FROM data_luarwilayah";
+
+                    using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
+                    {
+                        DataTable dataTable = new DataTable();
+                        await Task.Run(() => adapter.Fill(dataTable));
+
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            PatientDataGrid.ItemsSource = dataTable.DefaultView;
+                        }
+                        else
+                        {
+                            MessageBox.Show("No data found in the table.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading data: {ex.Message}");
+                }
+                finally
+                {
+                    LoadingProgressBar.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
 
         private void PatientDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
@@ -87,7 +241,6 @@ namespace RekamMedisPuskesmas
                 DataRowView rowView = e.Row.Item as DataRowView;
                 if (rowView != null)
                 {
-                    //string columnName = e.Column.Header.ToString();
                     // Mengambil header kolom
                     string columnHeader = e.Column.Header.ToString();
 
@@ -98,19 +251,19 @@ namespace RekamMedisPuskesmas
                     string noRm = rowView["no_rm"].ToString(); // Asumsi no_rm adalah primary key
 
                     // Menangani tipe data integer
-                    if (columnName == "RT" || columnName == "RW")
+                    if (columnName == "rt" || columnName == "rw")
                     {
                         if (int.TryParse(newValue, out int intValue))
                         {
-                            newValue = intValue.ToString();
+                            newValue = intValue.ToString(); // Simpan sebagai integer
                         }
                         else
                         {
-                            MessageBox.Show("Invalid number format.");
+                            MessageBox.Show("Invalid number format. Please enter a valid integer.");
                             return;
                         }
                     }
-                    else if (columnName == "Tanggal Lahir")
+                    else if (columnName == "tanggallahir")
                     {
                         if (DateTime.TryParse(newValue, out DateTime parsedDate))
                         {
@@ -127,25 +280,49 @@ namespace RekamMedisPuskesmas
                         newValue = newValue.ToUpper();
                     }
 
-                    UpdateDatabase(columnName, newValue, noRm);
+                    string wilayah = Cb_Wilayah.SelectedItem as string;
+                    UpdateDatabase(columnName, newValue, noRm, wilayah);
                 }
             }
         }
 
-
-        private void UpdateDatabase(string columnName, string newValue, string noRm)
+        private void UpdateDatabase(string columnName, string newValue, string noRm, string wilayah)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    string query = $"UPDATE data_pasien SET \"{columnName}\" = @value WHERE no_rm = @noRm";
+                    string query = $"UPDATE ";
+
+                    if (!string.IsNullOrEmpty(wilayah))
+                    {
+                        if (wilayah == "UJUNGGAGAK")
+                        {
+                            query += $"data_ujunggagak SET \"{columnName}\" = @value WHERE no_rm = @noRm";
+                        }
+                        else if (wilayah == "UJUNGALANG")
+                        {
+                            query += $"data_ujungalang SET \"{columnName}\" = @value WHERE no_rm = @noRm";
+                        }
+                        else if (wilayah == "PANIKEL")
+                        {
+                            query += $"data_panikel SET \"{columnName}\" = @value WHERE no_rm = @noRm";
+                        }
+                        else if (wilayah == "KLACES")
+                        {
+                            query += $"data_klaces SET \"{columnName}\" = @value WHERE no_rm = @noRm";
+                        }
+                        else
+                        {
+                            query += $"data_luarwilayah SET \"{columnName}\" = @value WHERE no_rm = @noRm";
+                        }
+                    }
 
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     {
                         // Menambahkan parameter dengan tipe yang sesuai
-                        if (columnName == "RT" || columnName == "RW")
+                        if (columnName == "rt" || columnName == "rw")
                         {
                             command.Parameters.AddWithValue("@value", int.Parse(newValue));
                         }
@@ -165,9 +342,11 @@ namespace RekamMedisPuskesmas
             }
         }
 
-        private void Btn_Delete_Click(object sender, RoutedEventArgs e)
+
+        private async void Btn_Delete_Click(object sender, RoutedEventArgs e)
         {
             DataRowView selectedRow = PatientDataGrid.SelectedItem as DataRowView;
+            string selectedWilayah = Cb_Wilayah.SelectedItem as string;
             if (selectedRow != null)
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show(
@@ -184,7 +363,31 @@ namespace RekamMedisPuskesmas
                             connection.Open();
                             string no_rm = selectedRow["no_rm"].ToString();
 
-                            string query = "DELETE FROM data_pasien WHERE no_rm = @no_rm";
+                            string query = "DELETE FROM ";
+
+                            if (!string.IsNullOrEmpty(selectedWilayah))
+                            {
+                                if (selectedWilayah == "UJUNGGAGAK")
+                                {
+                                    query += " data_ujunggagak WHERE no_rm = @no_rm";
+                                }
+                                else if (selectedWilayah == "UJUNGALANG")
+                                {
+                                    query += " data_ujungalang WHERE no_rm = @no_rm";
+                                }
+                                else if (selectedWilayah == "PANIKEL")
+                                {
+                                    query += " data_panikel WHERE no_rm = @no_rm";
+                                }
+                                else if (selectedWilayah == "KLACES")
+                                {
+                                    query += " data_klaces WHERE no_rm = @no_rm";
+                                }
+                                else
+                                {
+                                    query += " data_luarwilayah WHERE no_rm = @no_rm";
+                                }
+                            }
                             using (NpgsqlCommand cmd = new NpgsqlCommand(query, connection))
                             {
                                 cmd.Parameters.AddWithValue("no_rm", no_rm);
@@ -194,7 +397,29 @@ namespace RekamMedisPuskesmas
                             MessageBox.Show("Record deleted successfully.");
 
                             // Refresh the DataGrid after deletion
-                            LoadPatientData();
+                            if (!string.IsNullOrEmpty(selectedWilayah))
+                            {
+                                if (selectedWilayah == "UJUNGGAGAK")
+                                {
+                                    await LoadDataUjunggagakAsync();
+                                }
+                                else if (selectedWilayah == "UJUNGALANG")
+                                {
+                                    await LoadDataUjungalangAsync();
+                                }
+                                else if (selectedWilayah == "PANIKEL")
+                                {
+                                    await LoadDataPanikelAsync();
+                                }
+                                else if (selectedWilayah == "KLACES")
+                                {
+                                    await LoadDataKlacesAsync();
+                                }
+                                else
+                                {
+                                    await LoadDataLuarwilayahAsync();
+                                }
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -209,170 +434,214 @@ namespace RekamMedisPuskesmas
             }
         }
 
-        private void Cb_Wilayah_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void Cb_Wilayah_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string selectedWilayah = Cb_Wilayah.SelectedItem as string;
 
             if (selectedWilayah != null)
             {
-                if (selectedWilayah == "LUAR WILAYAH")
+                if (selectedWilayah == "UJUNGGAGAK")
                 {
-                    // Tampilkan data di luar wilayah UJUNGGAGAK, UJUNGALANG, KLACES, PANIKEL
-                    LoadFilteredPatientData("WHERE wilayah NOT IN ('UJUNGGAGAK', 'UJUNGALANG', 'PANIKEL', 'KLACES')");
+                    await LoadDataUjunggagakAsync();
+                }
+                else if (selectedWilayah == "UJUNGALANG")
+                {
+                    await LoadDataUjungalangAsync();
+                }
+                else if (selectedWilayah == "PANIKEL")
+                {
+                    await LoadDataPanikelAsync();
+                }
+                else if (selectedWilayah == "KLACES")
+                {
+                    await LoadDataKlacesAsync();
                 }
                 else
                 {
-                    // Tampilkan data sesuai wilayah yang dipilih
-                    LoadFilteredPatientData($"WHERE wilayah = '{selectedWilayah}'");
+                    await LoadDataLuarwilayahAsync();
                 }
             }
         }
-
-        private void LoadFilteredPatientData(string filter)
+        
+        private void Tbx_nama_KeyDown(object sender, KeyEventArgs e)
         {
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            if (e.Key == Key.Enter)
             {
-                try
+                string userInput = Tbx_nama.Text.ToUpper();
+                string selectedWilayah = Cb_Wilayah.SelectedItem as string;
+
+                if (string.IsNullOrEmpty(selectedWilayah))
                 {
-                    connection.Open();
-                    string query = $"SELECT no_rm,rmepus,nama,tanggallahir,nik,nobpjs,wilayah,rt,rw,namakk,tglinput FROM data_pasien {filter}";
-
-                    using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
-                    {
-                        DataTable dataTable = new DataTable();
-                        adapter.Fill(dataTable);
-
-                        if (dataTable.Rows.Count > 0)
-                        {
-                            PatientDataGrid.ItemsSource = dataTable.DefaultView;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Tidak terdapat data yang dicari!");
-                        }
-                    }
+                    MessageBox.Show("Please select a wilayah.");
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error loading data: {ex.Message}");
-                }
-            }
-        }
 
-        private void Tbx_noUrut_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string input = Tbx_noUrut.Text.Trim();
-            string selectedWilayah = Cb_Wilayah.SelectedItem as string;
-
-            if (string.IsNullOrEmpty(input))
-            {
+                string query = $"SELECT * FROM ";
                 if (!string.IsNullOrEmpty(selectedWilayah))
                 {
-                    // Tampilkan data sesuai wilayah yang dipilih
-                    Cb_Wilayah_SelectionChanged(null, null);
-                }
-                else
-                {
-                    LoadPatientData();
-                }
-            }
-            else
-            {
-                string paddedInput = input.PadLeft(6, '0');
-
-                if (paddedInput.Length == 6)
-                {
-                    using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                    if (selectedWilayah == "UJUNGGAGAK")
                     {
-                        try
+                        query += " data_ujunggagak WHERE UPPER(nama) LIKE @nama";
+                    }
+                    else if (selectedWilayah == "UJUNGALANG")
+                    {
+                        query += " data_ujungalang WHERE UPPER(nama) LIKE @nama";
+                    }
+                    else if (selectedWilayah == "PANIKEL")
+                    {
+                        query += " data_panikel WHERE UPPER(nama) LIKE @nama";
+                    }
+                    else if (selectedWilayah == "KLACES")
+                    {
+                        query += " data_klaces WHERE UPPER(nama) LIKE @nama";
+                    }
+                    else
+                    {
+                        query += " data_luarwilayah WHERE UPPER(nama) LIKE @nama";
+                    }
+                }
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    try
+                    {
+                        connection.Open();
+                        using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
                         {
-                            connection.Open();
-                            string query = "SELECT no_rm, rmepus, nama, tanggallahir, nik, nobpjs, wilayah, rt, rw, namakk, tglinput FROM data_pasien WHERE no_rm = @noUrut";
+                            adapter.SelectCommand.Parameters.AddWithValue("@nama", $"%{userInput}%");
 
-                            if (!string.IsNullOrEmpty(selectedWilayah))
-                            {
-                                if (selectedWilayah == "LUAR WILAYAH")
-                                {
-                                    query += " AND wilayah NOT IN ('UJUNGGAGAK', 'UJUNGALANG', 'PANIKEL', 'KLACES')";
-                                }
-                                else
-                                {
-                                    query += " AND wilayah = @selectedWilayah";
-                                }
-                            }
-
-                            using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
-                            {
-                                command.Parameters.AddWithValue("@noUrut", paddedInput);
-                                if (!string.IsNullOrEmpty(selectedWilayah) && selectedWilayah != "LUAR WILAYAH")
-                                {
-                                    command.Parameters.AddWithValue("@selectedWilayah", selectedWilayah);
-                                }
-
-                                using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(command))
-                                {
-                                    DataTable dataTable = new DataTable();
-                                    adapter.Fill(dataTable);
-                                    PatientDataGrid.ItemsSource = dataTable.DefaultView;
-                                }
-                            }
+                            DataTable dataTable = new DataTable();
+                            adapter.Fill(dataTable);
+                            PatientDataGrid.ItemsSource = dataTable.DefaultView;
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Error loading data: {ex.Message}");
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error loading data: {ex.Message}");
                     }
                 }
             }
         }
 
-
-        private void Tbx_nama_TextChanged(object sender, TextChangedEventArgs e)
+        private void Tbx_noBPJS_KeyDown(object sender, KeyEventArgs e)
         {
-            string userInput = Tbx_nama.Text.ToUpper();
-            string selectedWilayah = Cb_Wilayah.SelectedItem as string;
-
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            if (e.Key == Key.Enter)
             {
-                try
+                string userInput = Tbx_noBPJS.Text;
+                string selectedWilayah = Cb_Wilayah.SelectedItem as string;
+
+                if (string.IsNullOrEmpty(selectedWilayah))
                 {
-                    connection.Open();
-                    string query = "SELECT no_rm, rmepus, nama, tanggallahir, nik, nobpjs, wilayah, rt, rw, namakk, tglinput " +
-                                   "FROM data_pasien " +
-                                   "WHERE UPPER(nama) LIKE @nama";
+                    MessageBox.Show("Please select a wilayah.");
+                    return;
+                }
 
-                    if (!string.IsNullOrEmpty(selectedWilayah))
+                string query = $"SELECT * FROM ";
+                if (!string.IsNullOrEmpty(selectedWilayah))
+                {
+                    if (selectedWilayah == "UJUNGGAGAK")
                     {
-                        if (selectedWilayah == "LUAR WILAYAH")
-                        {
-                            query += " AND wilayah NOT IN ('UJUNGGAGAK', 'UJUNGALANG', 'PANIKEL', 'KLACES')";
-                        }
-                        else
-                        {
-                            query += " AND wilayah = @selectedWilayah";
-                        }
+                        query += " data_ujunggagak WHERE nobpjs LIKE @nobpjs";
                     }
-
-                    using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
+                    else if (selectedWilayah == "UJUNGALANG")
                     {
-                        adapter.SelectCommand.Parameters.AddWithValue("@nama", $"%{userInput}%");
-                        if (!string.IsNullOrEmpty(selectedWilayah) && selectedWilayah != "LUAR WILAYAH")
-                        {
-                            adapter.SelectCommand.Parameters.AddWithValue("@selectedWilayah", selectedWilayah);
-                        }
-
-                        DataTable dataTable = new DataTable();
-                        adapter.Fill(dataTable);
-                        PatientDataGrid.ItemsSource = dataTable.DefaultView;
+                        query += " data_ujungalang WHERE nobpjs LIKE @nobpjs";
+                    }
+                    else if (selectedWilayah == "PANIKEL")
+                    {
+                        query += " data_panikel WHERE nobpjs LIKE @nobpjs";
+                    }
+                    else if (selectedWilayah == "KLACES")
+                    {
+                        query += " data_klaces WHERE nobpjs LIKE @nobpjs";
+                    }
+                    else
+                    {
+                        query += " data_luarwilayah WHERE nobpjs LIKE @nobpjs";
                     }
                 }
-                catch (Exception ex)
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
-                    MessageBox.Show($"Error loading data: {ex.Message}");
+                    try
+                    {
+                        connection.Open();
+                        using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
+                        {
+                            adapter.SelectCommand.Parameters.AddWithValue("@nobpjs", $"%{userInput}%");
+
+                            DataTable dataTable = new DataTable();
+                            adapter.Fill(dataTable);
+                            PatientDataGrid.ItemsSource = dataTable.DefaultView;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error loading data: {ex.Message}");
+                    }
                 }
             }
         }
 
+        private void Tbx_noUrut_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                string userInput = Tbx_noUrut.Text;
+                string selectedWilayah = Cb_Wilayah.SelectedItem as string;
+
+                if (string.IsNullOrEmpty(selectedWilayah))
+                {
+                    MessageBox.Show("Please select a wilayah.");
+                    return;
+                }
+
+                string query = $"SELECT * FROM ";
+                if (!string.IsNullOrEmpty(selectedWilayah))
+                {
+                    if (selectedWilayah == "UJUNGGAGAK")
+                    {
+                        query += " data_ujunggagak WHERE no_rm LIKE @no_rm";
+                    }
+                    else if (selectedWilayah == "UJUNGALANG")
+                    {
+                        query += " data_ujungalang WHERE no_rm LIKE @no_rm";
+                    }
+                    else if (selectedWilayah == "PANIKEL")
+                    {
+                        query += " data_panikel WHERE no_rm LIKE @no_rm";
+                    }
+                    else if (selectedWilayah == "KLACES")
+                    {
+                        query += " data_klaces WHERE no_rm LIKE @no_rm";
+                    }
+                    else
+                    {
+                        query += " data_luarwilayah WHERE no_rm LIKE @no_rm";
+                    }
+                }
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    try
+                    {
+                        connection.Open();
+                        using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
+                        {
+                            adapter.SelectCommand.Parameters.AddWithValue("@no_rm", $"%{userInput}%");
+
+                            DataTable dataTable = new DataTable();
+                            adapter.Fill(dataTable);
+                            PatientDataGrid.ItemsSource = dataTable.DefaultView;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error loading data: {ex.Message}");
+                    }
+                }
+            }
+        }
 
         private void Btn_search_Click(object sender, RoutedEventArgs e)
         {
@@ -400,7 +669,7 @@ namespace RekamMedisPuskesmas
             Tbx_nama.Text = null;
             Tbx_noUrut.Text = null;
 
-            LoadPatientData(); // Reload all data
+            //LoadPatientData(); // Reload all data
         }
 
         private void FilterDataByDate(DateTime startDate, DateTime endDate, string wilayah)
@@ -413,23 +682,37 @@ namespace RekamMedisPuskesmas
                 try
                 {
                     connection.Open();
-                    // Kondisi filter untuk wilayah
-                    string wilayahFilter = string.IsNullOrEmpty(wilayah) ? "" : $" AND wilayah = @wilayah";
 
-                    string query = "SELECT no_rm, rmepus, nama, tanggallahir, nik, nobpjs, wilayah, rt, rw, namakk, tglinput " +
-                                   "FROM data_pasien " +
-                                   "WHERE tglinput >= @startDate AND tglinput < @endDate" + wilayahFilter;
+                    string query = "SELECT * FROM ";
+
+                    if (!string.IsNullOrEmpty(wilayah))
+                    {
+                        if (wilayah == "UJUNGGAGAK")
+                        {
+                            query += " data_ujunggagak WHERE tglinput >= @startDate AND tglinput < @endDate";
+                        }
+                        else if (wilayah == "UJUNGALANG")
+                        {
+                            query += " data_ujungalang WHERE tglinput >= @startDate AND tglinput < @endDate";
+                        }
+                        else if (wilayah == "PANIKEL")
+                        {
+                            query += " data_panikel WHERE tglinput >= @startDate AND tglinput < @endDate";
+                        }
+                        else if (wilayah == "KLACES")
+                        {
+                            query += " data_klaces WHERE tglinput >= @startDate AND tglinput < @endDate";
+                        }
+                        else
+                        {
+                            query += " data_luarwilayah WHERE tglinput >= @startDate AND tglinput < @endDate";
+                        }
+                    }
 
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@startDate", startDate);
                         command.Parameters.AddWithValue("@endDate", adjustedEndDate); // Menggunakan tanggal akhir yang telah disesuaikan
-
-                        // Menambahkan parameter wilayah jika diperlukan
-                        if (!string.IsNullOrEmpty(wilayah))
-                        {
-                            command.Parameters.AddWithValue("@wilayah", wilayah);
-                        }
 
                         using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(command))
                         {
@@ -446,57 +729,12 @@ namespace RekamMedisPuskesmas
             }
         }
 
-
-        private void Tbx_noBPJS_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string userInput = Tbx_noBPJS.Text;
-            string selectedWilayah = Cb_Wilayah.SelectedItem as string;
-
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    string query = "SELECT no_rm, rmepus, nama, tanggallahir, nik, nobpjs, wilayah, rt, rw, namakk, tglinput " +
-                                   "FROM data_pasien " +
-                                   "WHERE nobpjs LIKE @nobpjs";
-
-                    if (!string.IsNullOrEmpty(selectedWilayah))
-                    {
-                        if (selectedWilayah == "LUAR WILAYAH")
-                        {
-                            query += " AND wilayah NOT IN ('UJUNGGAGAK', 'UJUNGALANG', 'PANIKEL', 'KLACES')";
-                        }
-                        else
-                        {
-                            query += " AND wilayah = @selectedWilayah";
-                        }
-                    }
-
-                    using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection))
-                    {
-                        adapter.SelectCommand.Parameters.AddWithValue("@nobpjs", $"%{userInput}%");
-                        if (!string.IsNullOrEmpty(selectedWilayah) && selectedWilayah != "LUAR WILAYAH")
-                        {
-                            adapter.SelectCommand.Parameters.AddWithValue("@selectedWilayah", selectedWilayah);
-                        }
-
-                        DataTable dataTable = new DataTable();
-                        adapter.Fill(dataTable);
-                        PatientDataGrid.ItemsSource = dataTable.DefaultView;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error loading data: {ex.Message}");
-                }
-            }
-        }
-
         private void Change_Click(object sender, RoutedEventArgs e)
         {
             ChangePassword changepassword = new ChangePassword();
             changepassword.ShowDialog();
         }
+
+        
     }
 }

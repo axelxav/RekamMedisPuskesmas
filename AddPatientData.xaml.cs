@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Configuration;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -32,25 +33,33 @@ namespace RekamMedisPuskesmas
             this.Close();
         }
 
-        private void Btn_Add_Click(object sender, RoutedEventArgs e)
+        private async void Btn_Add_Click(object sender, RoutedEventArgs e)
         {
+            // Pastikan SetNoUrutAsync dipanggil untuk mengatur nilai Tbx_NoUrut.Text
+            if (Cb_Wilayah.SelectedItem == null)
+            {
+                MessageBox.Show("Silakan pilih wilayah terlebih dahulu.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string selectedWilayah = Cb_Wilayah.SelectedItem.ToString().ToUpper();
+            string tableName = GetTableNameForWilayah(selectedWilayah);
+
+            if (string.IsNullOrEmpty(tableName))
+            {
+                MessageBox.Show("Wilayah yang dipilih tidak valid.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            await SetNoUrutAsync(tableName);
+
             string nourut = Tbx_NoUrut.Text;
             string rmepus = Tbx_RMEpus.Text;
             string nama = Tbx_Nama.Text.ToUpper();
             DateTime? tanggallahir = Dp_TglLahir.SelectedDate;
             string nik = Tbx_NIK.Text;
             string nobpjs = Tbx_NoBpjs.Text;
-            string wilayah;
-
-            // Cek apakah "LUAR WILAYAH" yang dipilih, jika ya, ambil nilai dari Tbx_LuarWilayah
-            if (Cb_Wilayah.SelectedItem != null && Cb_Wilayah.SelectedItem.ToString() == "LUAR WILAYAH")
-            {
-                wilayah = Tbx_LuarWilayah.Text.ToUpper();
-            }
-            else
-            {
-                wilayah = Cb_Wilayah.Text.ToUpper();
-            }
+            string wilayah = (selectedWilayah == "LUAR WILAYAH") ? Tbx_LuarWilayah.Text.ToUpper() : selectedWilayah;
 
             int rt = int.Parse(Tbx_Rt.Text);
             int rw = int.Parse(Tbx_Rw.Text);
@@ -63,7 +72,7 @@ namespace RekamMedisPuskesmas
                     connection.Open();
 
                     // Insert query
-                    string insertQuery = "INSERT INTO data_pasien(no_rm, rmepus, nama, tanggallahir, nik, nobpjs, wilayah, rt, rw, namakk) " +
+                    string insertQuery = $"INSERT INTO {tableName}(no_rm, rmepus, nama, tanggallahir, nik, nobpjs, wilayah, rt, rw, namakk) " +
                                          "VALUES (@nourut, @rmepus, @nama, @tanggallahir, @nik, @nobpjs, @wilayah, @rt, @rw, @namakk)";
 
                     using (NpgsqlCommand insertCmd = new NpgsqlCommand(insertQuery, connection))
@@ -83,7 +92,7 @@ namespace RekamMedisPuskesmas
                     }
 
                     // Update query to apply LPAD
-                    string updateQuery = "UPDATE data_pasien " +
+                    string updateQuery = $"UPDATE {tableName} " +
                                          "SET no_rm = LPAD(no_rm, 6, '0'), " +
                                              "rmepus = LPAD(rmepus, 6, '0') " +
                                          "WHERE no_rm = @nourut AND rmepus = @rmepus";
@@ -99,7 +108,7 @@ namespace RekamMedisPuskesmas
 
                 // Tutup jendela dan refresh DataGrid
                 this.Close();
-                _indeksPasien.RefreshData();
+                //_indeksPasien.RefreshData();
             }
             catch (Exception ex)
             {
@@ -108,8 +117,7 @@ namespace RekamMedisPuskesmas
             }
         }
 
-
-        private void Cb_Wilayah_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void Cb_Wilayah_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Aktifkan TextBox jika "LUAR WILAYAH" dipilih
             if (Cb_Wilayah.SelectedItem != null && Cb_Wilayah.SelectedItem.ToString().ToUpper() == "LUAR WILAYAH")
@@ -119,6 +127,77 @@ namespace RekamMedisPuskesmas
             else
             {
                 Tbx_LuarWilayah.IsEnabled = false;
+            }
+
+            if (Cb_Wilayah.SelectedItem != null)
+            {
+                string selectedWilayah = Cb_Wilayah.SelectedItem.ToString().ToUpper();
+                string tableName = GetTableNameForWilayah(selectedWilayah);
+
+                if (!string.IsNullOrEmpty(tableName))
+                {
+                    await SetNoUrutAsync(tableName);
+                }
+            }
+        }
+
+        private async Task SetNoUrutAsync(string tableName)
+        {
+            string query = $"SELECT COALESCE(MAX(no_rm), '000000') FROM {tableName}";
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    await connection.OpenAsync();
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    {
+                        object result = await command.ExecuteScalarAsync();
+
+                        if (result != DBNull.Value)
+                        {
+                            string maxNoRm = result.ToString();
+                            int maxNoRmInt;
+
+                            // Try to parse the result as an integer and increment
+                            if (int.TryParse(maxNoRm, out maxNoRmInt))
+                            {
+                                maxNoRmInt++;
+                            }
+                            else
+                            {
+                                maxNoRmInt = 1; // Handle case where parsing fails, default to 1
+                            }
+
+                            // Format the incremented value with leading zeros
+                            Tbx_NoUrut.Text = maxNoRmInt.ToString("D6"); // Adjust length if needed
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error retrieving data: {ex.Message}");
+                }
+            }
+        }
+
+        private string GetTableNameForWilayah(string wilayah)
+        {
+            switch (wilayah)
+            {
+                case "UJUNGGAGAK":
+                    return "data_ujunggagak";
+                case "UJUNGALANG":
+                    return "data_ujungalang";
+                case "PANIKEL":
+                    return "data_panikel";
+                case "KLACES":
+                    return "data_klaces";
+                case "LUAR WILAYAH":
+                    return "data_luarwilayah";
+                default:
+                    return "";
             }
         }
     }

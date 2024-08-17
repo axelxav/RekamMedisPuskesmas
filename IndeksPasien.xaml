@@ -121,7 +121,7 @@
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left"
-                            TextChanged="Tbx_noUrut_TextChanged"
+                            KeyDown="Tbx_noUrut_KeyDown"
                             >
 
                         </TextBox>
@@ -146,7 +146,7 @@
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left"
-                            TextChanged="Tbx_noBPJS_TextChanged"
+                            KeyDown="Tbx_noBPJS_KeyDown"
                             >
 
                         </TextBox>
@@ -171,7 +171,7 @@
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left"
-                            TextChanged="Tbx_nama_TextChanged"
+                            KeyDown="Tbx_nama_KeyDown"
                             >
 
                         </TextBox>
@@ -295,14 +295,16 @@
                     RowHeight="20"
                     ColumnWidth="120"
                     CellEditEnding="PatientDataGrid_CellEditEnding"
+                    VirtualizingStackPanel.IsVirtualizing="True" 
+                    VirtualizingStackPanel.VirtualizationMode="Recycling"
                     >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="No RM" Binding="{Binding no_rm}" Width="70"/>
-                        <DataGridTextColumn Header="No RM E-PUS" Binding="{Binding rmepus}" Width="70"/>
-                        <DataGridTextColumn Header="Nama Pasien" Binding="{Binding nama}" Width="*"/>
+                        <DataGridTextColumn Header="RM E-PUS" Binding="{Binding rmepus}" Width="70"/>
+                        <DataGridTextColumn Header="Nama" Binding="{Binding nama}" Width="*"/>
                         <DataGridTextColumn Header="Tanggal Lahir" Binding="{Binding tanggallahir, StringFormat=\{0:yyyy-MM-dd\}}" Width="100"/>
                         <DataGridTextColumn Header="NIK" Binding="{Binding nik}" Width="*"/>
-                        <DataGridTextColumn Header="No Asuransi" Binding="{Binding nobpjs}" Width="*"/>
+                        <DataGridTextColumn Header="No BPJS" Binding="{Binding nobpjs}" Width="*"/>
                         <DataGridTextColumn Header="Wilayah" Binding="{Binding wilayah}" Width="*"/>
                         <DataGridTextColumn Header="RT" Binding="{Binding rt}" Width="50"/>
                         <DataGridTextColumn Header="RW" Binding="{Binding rw}" Width="50"/>
@@ -311,6 +313,16 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
+            <ProgressBar 
+                x:Name="LoadingProgressBar"
+                Height="10" 
+                Width="100" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Visibility="Collapsed"
+                IsIndeterminate="True"
+                Grid.Row="1"
+                />
         </Grid>
     </ScrollViewer>
 </Page>
