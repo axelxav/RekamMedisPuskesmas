@@ -54,7 +54,6 @@
                             <MenuItem Header="Change Password" Click="Change_Click"></MenuItem>
                             <MenuItem Header="Log Out" Click="LogOut_Click"></MenuItem>
                         </MenuItem>
-
                     </Menu>
                 </Grid>
 
@@ -147,7 +146,6 @@
                             HorizontalAlignment="Left"
                             KeyDown="Tbx_noBPJS_KeyDown"
                             >
-
                         </TextBox>
 
                         <Label 
@@ -172,7 +170,6 @@
                             HorizontalAlignment="Left"
                             KeyDown="Tbx_nama_KeyDown"
                             >
-
                         </TextBox>
 
                         <StackPanel Margin="10 0 0 0">
@@ -217,7 +214,6 @@
                                     Width="150"
                                     Height="30" BorderBrush="{x:Null}"
                                     >
-
                                 </DatePicker>
                             </StackPanel>
 

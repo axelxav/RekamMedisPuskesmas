@@ -51,12 +51,28 @@ namespace RekamMedisPuskesmas
                 return;
             }
 
+            if (string.IsNullOrWhiteSpace(Tbx_NoUrut.Text) ||
+                string.IsNullOrWhiteSpace(Tbx_RMEpus.Text) ||
+                string.IsNullOrWhiteSpace(Tbx_Nama.Text) ||
+                !Dp_TglLahir.SelectedDate.HasValue ||
+                string.IsNullOrWhiteSpace(Tbx_NIK.Text) ||
+                string.IsNullOrWhiteSpace(Tbx_NoBpjs.Text) ||
+                string.IsNullOrWhiteSpace((selectedWilayah == "LUAR WILAYAH") ? Tbx_LuarWilayah.Text : selectedWilayah) ||
+                string.IsNullOrWhiteSpace(Tbx_Rt.Text) ||
+                string.IsNullOrWhiteSpace(Tbx_Rw.Text) ||
+                string.IsNullOrWhiteSpace(Tbx_NamaKK.Text))
+            {
+                // Show an error message or disable the button
+                MessageBox.Show("Please fill in all required fields.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             await SetNoUrutAsync(tableName);
 
             string nourut = Tbx_NoUrut.Text;
             string rmepus = Tbx_RMEpus.Text;
             string nama = Tbx_Nama.Text.ToUpper();
-            DateTime? tanggallahir = Dp_TglLahir.SelectedDate;
+            DateTime? tanggallahir = Dp_TglLahir.SelectedDate?.Date;
             string nik = Tbx_NIK.Text;
             string nobpjs = Tbx_NoBpjs.Text;
             string wilayah = (selectedWilayah == "LUAR WILAYAH") ? Tbx_LuarWilayah.Text.ToUpper() : selectedWilayah;
@@ -105,15 +121,40 @@ namespace RekamMedisPuskesmas
                         updateCmd.ExecuteNonQuery();
                     }
                 }
+                // Panggil metode refresh data pada IndeksPasien setelah data berhasil ditambahkan
+                await RefreshDataGridAsync(selectedWilayah);
 
-                // Tutup jendela dan refresh DataGrid
                 this.Close();
-                //_indeksPasien.RefreshData();
             }
             catch (Exception ex)
             {
                 // Tampilkan pesan kesalahan jika terjadi exception
                 MessageBox.Show("Terjadi kesalahan saat menambahkan data: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async Task RefreshDataGridAsync(string selectedWilayah)
+        {
+            switch (selectedWilayah)
+            {
+                case "UJUNGGAGAK":
+                    await _indeksPasien.LoadDataUjunggagakAsync();
+                    break;
+                case "UJUNGALANG":
+                    await _indeksPasien.LoadDataUjungalangAsync();
+                    break;
+                case "PANIKEL":
+                    await _indeksPasien.LoadDataPanikelAsync();
+                    break;
+                case "KLACES":
+                    await _indeksPasien.LoadDataKlacesAsync();
+                    break;
+                case "LUAR WILAYAH":
+                    await _indeksPasien.LoadDataLuarwilayahAsync();
+                    break;
+                default:
+                    MessageBox.Show("Wilayah yang dipilih tidak valid.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
             }
         }
 
