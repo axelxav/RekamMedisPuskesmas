@@ -668,6 +668,7 @@ namespace RekamMedisPuskesmas
             Cb_Wilayah.SelectedItem = null;
             Tbx_nama.Text = null;
             Tbx_noUrut.Text = null;
+            PatientDataGrid.ItemsSource = null;
 
             //LoadPatientData(); // Reload all data
         }
