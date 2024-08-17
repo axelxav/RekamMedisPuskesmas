@@ -32,11 +32,6 @@ namespace RekamMedisPuskesmas
             _mainWindow = mainWindow;
         }
 
-        public async void RefreshData()
-        {
-            await LoadDataKlacesAsync();
-        }
-
         private async void Btn_add_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             AddPatientData addPatientData = new AddPatientData(this);
@@ -48,7 +43,7 @@ namespace RekamMedisPuskesmas
             _mainWindow.NavigateToPage(new LoginPage(_mainWindow));
         }
 
-        private async Task LoadDataUjunggagakAsync()
+        public async Task LoadDataUjunggagakAsync()
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
 
@@ -85,7 +80,7 @@ namespace RekamMedisPuskesmas
             }
         }
 
-        private async Task LoadDataUjungalangAsync()
+        public async Task LoadDataUjungalangAsync()
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
 
@@ -122,7 +117,7 @@ namespace RekamMedisPuskesmas
             }
         }
 
-        private async Task LoadDataPanikelAsync()
+        public async Task LoadDataPanikelAsync()
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
 
@@ -160,7 +155,7 @@ namespace RekamMedisPuskesmas
             }
         }
 
-        private async Task LoadDataKlacesAsync()
+        public async Task LoadDataKlacesAsync()
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
 
@@ -197,7 +192,7 @@ namespace RekamMedisPuskesmas
             }
         }
 
-        private async Task LoadDataLuarwilayahAsync()
+        public async Task LoadDataLuarwilayahAsync()
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
 
@@ -343,7 +338,7 @@ namespace RekamMedisPuskesmas
         }
 
 
-        private async void Btn_Delete_Click(object sender, RoutedEventArgs e)
+        public async void Btn_Delete_Click(object sender, RoutedEventArgs e)
         {
             DataRowView selectedRow = PatientDataGrid.SelectedItem as DataRowView;
             string selectedWilayah = Cb_Wilayah.SelectedItem as string;
@@ -735,7 +730,5 @@ namespace RekamMedisPuskesmas
             ChangePassword changepassword = new ChangePassword();
             changepassword.ShowDialog();
         }
-
-        
     }
 }
