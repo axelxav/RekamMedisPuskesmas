@@ -63,7 +63,7 @@ namespace RekamMedisPuskesmas
                 string.IsNullOrWhiteSpace(Tbx_NamaKK.Text))
             {
                 // Show an error message or disable the button
-                MessageBox.Show("Please fill in all required fields.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Mohon untuk isi semua masukan!", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -72,7 +72,7 @@ namespace RekamMedisPuskesmas
             string nourut = Tbx_NoUrut.Text;
             string rmepus = Tbx_RMEpus.Text;
             string nama = Tbx_Nama.Text.ToUpper();
-            DateTime? tanggallahir = Dp_TglLahir.SelectedDate?.Date;
+            string tanggallahir = Dp_TglLahir.SelectedDate.Value.ToString("yyyy-MM-dd");
             string nik = Tbx_NIK.Text;
             string nobpjs = Tbx_NoBpjs.Text;
             string wilayah = (selectedWilayah == "LUAR WILAYAH") ? Tbx_LuarWilayah.Text.ToUpper() : selectedWilayah;
@@ -218,7 +218,7 @@ namespace RekamMedisPuskesmas
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error retrieving data: {ex.Message}");
+                    MessageBox.Show($"Galat dalam menarik data: {ex.Message}");
                 }
             }
         }
