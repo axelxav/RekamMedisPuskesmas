@@ -290,6 +290,7 @@
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch" 
                     Width="1280"
+                    Height="650"
                     Margin="10"
                     HorizontalContentAlignment="Stretch"
                     RowHeight="20"
