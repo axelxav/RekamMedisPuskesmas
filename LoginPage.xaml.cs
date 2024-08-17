@@ -81,5 +81,12 @@ namespace RekamMedisPuskesmas
             public static string Username { get; set; }
         }
 
+        private void pwdbox_password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Btn_login_Clicked(sender, e);
+            }
+        }
     }
 }

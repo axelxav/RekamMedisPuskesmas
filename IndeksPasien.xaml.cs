@@ -239,6 +239,13 @@ namespace RekamMedisPuskesmas
                     // Mengambil header kolom
                     string columnHeader = e.Column.Header.ToString();
 
+                    if (columnHeader.Equals("No RM", StringComparison.OrdinalIgnoreCase))
+                    {
+                        MessageBox.Show("Pengeditan pada kolom 'No RM' tidak diperbolehkan!", "Peringatan", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        e.Cancel = true; // Batalkan pengeditan
+                        return;
+                    }
+
                     // Menghapus spasi, karakter khusus, dan mengubah menjadi huruf kecil
                     string columnName = Regex.Replace(columnHeader, @"[^a-zA-Z0-9]", "").ToLower();
 
@@ -254,7 +261,7 @@ namespace RekamMedisPuskesmas
                         }
                         else
                         {
-                            MessageBox.Show("Invalid number format. Please enter a valid integer.");
+                            MessageBox.Show("Format angka salah");
                             return;
                         }
                     }
@@ -266,7 +273,7 @@ namespace RekamMedisPuskesmas
                         }
                         else
                         {
-                            MessageBox.Show("Invalid date format.");
+                            MessageBox.Show("Format tanggal salah");
                             return;
                         }
                     }
@@ -332,7 +339,7 @@ namespace RekamMedisPuskesmas
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error updating data: {ex.Message}");
+                    MessageBox.Show($"Error dalam melakukan pembaharuan data: {ex.Message}");
                 }
             }
         }
@@ -345,8 +352,8 @@ namespace RekamMedisPuskesmas
             if (selectedRow != null)
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show(
-                    "Are you sure you want to delete this record?",
-                    "Delete Confirmation",
+                    "Apakah Anda yakin untuk menghapus data ini?",
+                    "Konfirmasi penghapusan",
                     MessageBoxButton.YesNo);
 
                 if (messageBoxResult == MessageBoxResult.Yes)
@@ -389,7 +396,7 @@ namespace RekamMedisPuskesmas
                                 cmd.ExecuteNonQuery();
                             }
 
-                            MessageBox.Show("Record deleted successfully.");
+                            MessageBox.Show("Data telah dihapus dari database");
 
                             // Refresh the DataGrid after deletion
                             if (!string.IsNullOrEmpty(selectedWilayah))
@@ -419,13 +426,13 @@ namespace RekamMedisPuskesmas
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error deleting data: {ex.Message}");
+                        MessageBox.Show($"Galat dalam menghapus data: {ex.Message}");
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Please select a row to delete.");
+                MessageBox.Show("Klik terlebih dahulu pada baris yang hendak dihapus");
             }
         }
 
@@ -467,7 +474,7 @@ namespace RekamMedisPuskesmas
 
                 if (string.IsNullOrEmpty(selectedWilayah))
                 {
-                    MessageBox.Show("Please select a wilayah.");
+                    MessageBox.Show("Pilih wilayah terlebih dahulu!");
                     return;
                 }
 
@@ -512,7 +519,7 @@ namespace RekamMedisPuskesmas
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error loading data: {ex.Message}");
+                        MessageBox.Show($"Galat dalam memuat data: {ex.Message}");
                     }
                 }
             }
@@ -527,7 +534,7 @@ namespace RekamMedisPuskesmas
 
                 if (string.IsNullOrEmpty(selectedWilayah))
                 {
-                    MessageBox.Show("Please select a wilayah.");
+                    MessageBox.Show("Pilih wilayah terlebih dahulu");
                     return;
                 }
 
@@ -572,7 +579,7 @@ namespace RekamMedisPuskesmas
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error loading data: {ex.Message}");
+                        MessageBox.Show($"Galat dalam memuat data: {ex.Message}");
                     }
                 }
             }
@@ -587,7 +594,7 @@ namespace RekamMedisPuskesmas
 
                 if (string.IsNullOrEmpty(selectedWilayah))
                 {
-                    MessageBox.Show("Please select a wilayah.");
+                    MessageBox.Show("Pilihlah salah satu wilayah");
                     return;
                 }
 
@@ -632,7 +639,7 @@ namespace RekamMedisPuskesmas
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error loading data: {ex.Message}");
+                        MessageBox.Show($"Galat dalam memuat data: {ex.Message}");
                     }
                 }
             }
@@ -650,7 +657,7 @@ namespace RekamMedisPuskesmas
             }
             else
             {
-                MessageBox.Show("Please select both start and end dates.");
+                MessageBox.Show("Pilih tanggal mulai dan tanggal akhir");
             }
         }
 
@@ -720,7 +727,7 @@ namespace RekamMedisPuskesmas
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error loading data: {ex.Message}");
+                    MessageBox.Show($"Galat dalam memuat data: {ex.Message}");
                 }
             }
         }
